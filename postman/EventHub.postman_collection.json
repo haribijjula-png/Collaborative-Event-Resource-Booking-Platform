@@ -1,0 +1,2958 @@
+{
+  "info": {
+    "name": "EventHub API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Run 'POST /auth/register' then 'POST /auth/login' first; tokens are stored automatically."
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "refresh_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST /auth/register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Register",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"username\": \"jdoe\",\n  \"full_name\": \"sample full_name\",\n  \"password\": \"Passw0rd!x\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "POST /auth/login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Login",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"Passw0rd!x\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.response.json().data;",
+                  "if (d) { pm.collectionVariables.set('access_token', d.access_token); pm.collectionVariables.set('refresh_token', d.refresh_token); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /auth/refresh",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/refresh",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Refresh",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.response.json().data;",
+                  "if (d) { pm.collectionVariables.set('access_token', d.access_token); pm.collectionVariables.set('refresh_token', d.refresh_token); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /auth/logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Logout",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /auth/me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Me"
+          }
+        },
+        {
+          "name": "POST /auth/change-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/change-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "change-password"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Change Password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"old_password\": \"sample old_password\",\n  \"new_password\": \"sample new_password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Organizations",
+      "item": [
+        {
+          "name": "GET /organizations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "My Orgs"
+          }
+        },
+        {
+          "name": "POST /organizations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Create Org",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"sample name\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /organizations/{org_id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Get Org"
+          }
+        },
+        {
+          "name": "PATCH /organizations/{org_id}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Org",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /organizations/{org_id}/members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id/members",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id",
+                "members"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "role",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "is_active",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Members"
+          }
+        },
+        {
+          "name": "POST /organizations/{org_id}/members",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id/members",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id",
+                "members"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Add Member",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "DELETE /organizations/{org_id}/members/{member_id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id/members/:member_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id",
+                "members",
+                ":member_id"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                },
+                {
+                  "key": "member_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Remove Member"
+          }
+        },
+        {
+          "name": "PATCH /organizations/{org_id}/members/{member_id}/role",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id/members/:member_id/role",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id",
+                "members",
+                ":member_id",
+                "role"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                },
+                {
+                  "key": "member_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Change Role",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"org_admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "POST /organizations/{org_id}/members/{member_id}/activate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id/members/:member_id/activate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id",
+                "members",
+                ":member_id",
+                "activate"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                },
+                {
+                  "key": "member_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Activate Member"
+          }
+        },
+        {
+          "name": "POST /organizations/{org_id}/members/{member_id}/deactivate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id/members/:member_id/deactivate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id",
+                "members",
+                ":member_id",
+                "deactivate"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                },
+                {
+                  "key": "member_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Deactivate Member"
+          }
+        },
+        {
+          "name": "GET /organizations/{org_id}/audit-logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/:org_id/audit-logs",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "organizations",
+                ":org_id",
+                "audit-logs"
+              ],
+              "variable": [
+                {
+                  "key": "org_id",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Audit Logs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "POST /events",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Create Event",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"sample name\",\n  \"start_time\": \"2026-10-29T04:00:00+00:00\",\n  \"end_time\": \"2026-10-29T06:00:00+00:00\",\n  \"capacity\": 1,\n  \"organization_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /events",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "organizer_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "organization_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "start_from",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "start_to",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "location",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Events"
+          }
+        },
+        {
+          "name": "GET /events/{event_id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Get Event"
+          }
+        },
+        {
+          "name": "PATCH /events/{event_id}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Event",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "DELETE /events/{event_id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Delete Event"
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/publish",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/publish",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "publish"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Publish Event"
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/cancel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "cancel"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Cancel Event"
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/archive",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/archive",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "archive"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Archive Event"
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Generic status transition (e.g. ongoing, completed)",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"draft\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "register"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Register",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /events/{event_id}/registrations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/registrations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "registrations"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Event Registrations"
+          }
+        },
+        {
+          "name": "GET /registrations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/registrations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "registrations"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "event_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "user_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "organization_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "date_from",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "date_to",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Registrations"
+          }
+        },
+        {
+          "name": "GET /registrations/{reg_id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/registrations/:reg_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "registrations",
+                ":reg_id"
+              ],
+              "variable": [
+                {
+                  "key": "reg_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Get Registration"
+          }
+        },
+        {
+          "name": "POST /registrations/{reg_id}/cancel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/registrations/:reg_id/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "registrations",
+                ":reg_id",
+                "cancel"
+              ],
+              "variable": [
+                {
+                  "key": "reg_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Cancel Registration"
+          }
+        },
+        {
+          "name": "POST /registrations/{reg_id}/approve",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/registrations/:reg_id/approve",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "registrations",
+                ":reg_id",
+                "approve"
+              ],
+              "variable": [
+                {
+                  "key": "reg_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Approve Registration"
+          }
+        },
+        {
+          "name": "POST /registrations/{reg_id}/reject",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/registrations/:reg_id/reject",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "registrations",
+                ":reg_id",
+                "reject"
+              ],
+              "variable": [
+                {
+                  "key": "reg_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Reject Registration",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/sessions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/sessions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "sessions"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Create Session",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"sample title\",\n  \"start_time\": \"2026-10-29T04:00:00+00:00\",\n  \"end_time\": \"2026-10-29T06:00:00+00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /events/{event_id}/sessions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/sessions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "sessions"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "List Sessions"
+          }
+        },
+        {
+          "name": "GET /sessions/{session_id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/sessions/:session_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                ":session_id"
+              ],
+              "variable": [
+                {
+                  "key": "session_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Get Session"
+          }
+        },
+        {
+          "name": "PATCH /sessions/{session_id}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/sessions/:session_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                ":session_id"
+              ],
+              "variable": [
+                {
+                  "key": "session_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Session",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "DELETE /sessions/{session_id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/sessions/:session_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                ":session_id"
+              ],
+              "variable": [
+                {
+                  "key": "session_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Delete Session"
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/attendance",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "attendance"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Mark Attendance",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /events/{event_id}/attendance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/attendance",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "attendance"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Attendance"
+          }
+        },
+        {
+          "name": "PATCH /attendance/{att_id}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attendance/:att_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                ":att_id"
+              ],
+              "variable": [
+                {
+                  "key": "att_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Attendance",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"registered\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /events/{event_id}/attendance/export",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/attendance/export",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "attendance",
+                "export"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "CSV attendance report"
+          }
+        },
+        {
+          "name": "POST /files",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/files",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Upload File",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file"
+                },
+                {
+                  "key": "event_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "entity_type",
+                  "value": "event",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /events/{event_id}/files",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/files",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "files"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "entity_type",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "entity_id",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Files"
+          }
+        },
+        {
+          "name": "GET /files/{att_id}/download",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/:att_id/download",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                ":att_id",
+                "download"
+              ],
+              "variable": [
+                {
+                  "key": "att_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Download File"
+          }
+        },
+        {
+          "name": "DELETE /files/{att_id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/:att_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                ":att_id"
+              ],
+              "variable": [
+                {
+                  "key": "att_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Delete File"
+          }
+        },
+        {
+          "name": "POST /events/{event_id}/comments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/comments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "comments"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Add Event Comment",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"sample body\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /events/{event_id}/comments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/:event_id/comments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                ":event_id",
+                "comments"
+              ],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Event Comments"
+          }
+        },
+        {
+          "name": "POST /sessions/{session_id}/comments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/sessions/:session_id/comments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                ":session_id",
+                "comments"
+              ],
+              "variable": [
+                {
+                  "key": "session_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Add Session Comment",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"sample body\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /sessions/{session_id}/comments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/sessions/:session_id/comments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                ":session_id",
+                "comments"
+              ],
+              "variable": [
+                {
+                  "key": "session_id",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Session Comments"
+          }
+        },
+        {
+          "name": "PATCH /comments/{comment_id}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/comments/:comment_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "comments",
+                ":comment_id"
+              ],
+              "variable": [
+                {
+                  "key": "comment_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Comment",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"sample body\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "DELETE /comments/{comment_id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/comments/:comment_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "comments",
+                ":comment_id"
+              ],
+              "variable": [
+                {
+                  "key": "comment_id",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Delete Comment"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources & Bookings",
+      "item": [
+        {
+          "name": "POST /resources",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/resources",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "resources"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Create Resource",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization_id\": 1,\n  \"name\": \"sample name\",\n  \"type\": \"meeting_room\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /resources",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/resources",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "resources"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "organization_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Resources"
+          }
+        },
+        {
+          "name": "GET /resources/{rid}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/resources/:rid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "resources",
+                ":rid"
+              ],
+              "variable": [
+                {
+                  "key": "rid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Get Resource"
+          }
+        },
+        {
+          "name": "PATCH /resources/{rid}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/resources/:rid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "resources",
+                ":rid"
+              ],
+              "variable": [
+                {
+                  "key": "rid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Resource",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "POST /resources/{rid}/activate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/resources/:rid/activate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "resources",
+                ":rid",
+                "activate"
+              ],
+              "variable": [
+                {
+                  "key": "rid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Activate Resource"
+          }
+        },
+        {
+          "name": "POST /resources/{rid}/deactivate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/resources/:rid/deactivate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "resources",
+                ":rid",
+                "deactivate"
+              ],
+              "variable": [
+                {
+                  "key": "rid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Deactivate Resource"
+          }
+        },
+        {
+          "name": "POST /bookings",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Create Booking",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resource_id\": 1,\n  \"start_time\": \"2026-10-29T04:00:00+00:00\",\n  \"end_time\": \"2026-10-29T06:00:00+00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "resource_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "date_from",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "date_to",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "requested_by",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "event_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "organization_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Bookings"
+          }
+        },
+        {
+          "name": "GET /bookings/{bid}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/:bid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                ":bid"
+              ],
+              "variable": [
+                {
+                  "key": "bid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Get Booking"
+          }
+        },
+        {
+          "name": "PATCH /bookings/{bid}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/:bid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                ":bid"
+              ],
+              "variable": [
+                {
+                  "key": "bid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Booking",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "POST /bookings/{bid}/approve",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/:bid/approve",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                ":bid",
+                "approve"
+              ],
+              "variable": [
+                {
+                  "key": "bid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Approve Booking"
+          }
+        },
+        {
+          "name": "POST /bookings/{bid}/reject",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/:bid/reject",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                ":bid",
+                "reject"
+              ],
+              "variable": [
+                {
+                  "key": "bid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Reject Booking"
+          }
+        },
+        {
+          "name": "POST /bookings/{bid}/cancel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/:bid/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                ":bid",
+                "cancel"
+              ],
+              "variable": [
+                {
+                  "key": "bid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Cancel Booking"
+          }
+        },
+        {
+          "name": "POST /speakers",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/speakers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "speakers"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Create Speaker",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization_id\": 1,\n  \"name\": \"sample name\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "GET /speakers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/speakers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "speakers"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "organization_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Speakers"
+          }
+        },
+        {
+          "name": "GET /speakers/{spid}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/speakers/:spid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "speakers",
+                ":spid"
+              ],
+              "variable": [
+                {
+                  "key": "spid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Get Speaker"
+          }
+        },
+        {
+          "name": "PATCH /speakers/{spid}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/speakers/:spid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "speakers",
+                ":spid"
+              ],
+              "variable": [
+                {
+                  "key": "spid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Update Speaker",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "DELETE /speakers/{spid}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/speakers/:spid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "speakers",
+                ":spid"
+              ],
+              "variable": [
+                {
+                  "key": "spid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Delete Speaker"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications & Dashboard",
+      "item": [
+        {
+          "name": "GET /notifications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "is_read",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page_size",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Notifications"
+          }
+        },
+        {
+          "name": "PATCH /notifications/read-all",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/read-all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "read-all"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Read All"
+          }
+        },
+        {
+          "name": "PATCH /notifications/{nid}/read",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/:nid/read",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                ":nid",
+                "read"
+              ],
+              "variable": [
+                {
+                  "key": "nid",
+                  "value": "1"
+                }
+              ],
+              "query": []
+            },
+            "description": "Read One"
+          }
+        },
+        {
+          "name": "GET /dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "dashboard"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "organization_id",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Dashboard"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health"
+              ],
+              "variable": [],
+              "query": []
+            },
+            "description": "Health"
+          }
+        }
+      ]
+    }
+  ]
+}
